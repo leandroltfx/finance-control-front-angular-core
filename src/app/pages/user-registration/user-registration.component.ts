@@ -26,25 +26,25 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 })
 export class UserRegistrationComponent implements OnInit {
 
-  passwordVisible: boolean = false;
-  userRegistrationForm!: FormGroup;
+  protected passwordVisible: boolean = false;
+  protected userRegistrationForm!: FormGroup;
 
   constructor(
-    private readonly _formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder
   ) { }
 
-  ngOnInit(): void {
-    this.userRegistrationForm = this._buildUserRegistrationForm();
+  public ngOnInit(): void {
+    this.userRegistrationForm = this.buildUserRegistrationForm();
   }
 
-  registerUser(): void {
+  protected registerUser(): void {
     if (this.userRegistrationForm.valid) {
       console.log('registerUser', this.userRegistrationForm.value);
     }
   }
 
-  private _buildUserRegistrationForm(): FormGroup {
-    return this._formBuilder.group({
+  private buildUserRegistrationForm(): FormGroup {
+    return this.formBuilder.group({
       userName: null,
       email: null,
       password: null
