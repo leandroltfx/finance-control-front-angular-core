@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -28,6 +28,14 @@ export class UserRegistrationComponent implements OnInit {
 
   protected passwordVisible: boolean = false;
   protected userRegistrationForm!: FormGroup;
+  protected userNameMinLength: number = 3;
+  protected userNameMaxLength: number = 30;
+  protected emailMaxLength: number = 100;
+  protected passwordMinLength: number = 8;
+  protected passwordMaxLength: number = 100;
+
+  private patternUsername: RegExp = /^\S+$/;
+  private patternEmail: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   constructor(
     private readonly formBuilder: FormBuilder
@@ -45,9 +53,9 @@ export class UserRegistrationComponent implements OnInit {
 
   private buildUserRegistrationForm(): FormGroup {
     return this.formBuilder.group({
-      userName: null,
-      email: null,
-      password: null
+      userName: [null, [Validators.required, Validators.pattern(this.patternUsername), Validators.minLength(this.userNameMinLength), Validators.maxLength(this.userNameMaxLength)]],
+      email: [null, [Validators.required, Validators.pattern(this.patternEmail), Validators.maxLength(this.emailMaxLength)]],
+      password: [null, [Validators.required, Validators.minLength(this.passwordMinLength), Validators.maxLength(this.passwordMaxLength)]]
     });
   }
 

@@ -7,25 +7,57 @@
         </ng-template>
         <form nz-form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()">
             <nz-form-item>
-                <nz-form-control>
+                <nz-form-control [nzErrorTip]="userNameErrorTemplate">
                     <nz-input-group nzPrefixIcon="user">
                         <input type="text" nz-input formControlName="userName"
                             placeholder="Informe o nome de usuário" />
+                        <ng-template #userNameErrorTemplate let-control>
+                            @if (control.errors?.['required']) {
+                            Informe o nome de usuário
+                            }
+                            @if (control.errors?.['pattern']) {
+                            O nome de usuário não deve conter espaços em branco
+                            }
+                            @if ((control.errors?.['maxlength'] || control.errors?.['minlength']) &&
+                            !control.errors?.['pattern']) {
+                            O nome de usuário deve conter entre {{ userNameMinLength }} e {{ userNameMaxLength }}
+                            caracteres
+                            }
+                        </ng-template>
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control>
+                <nz-form-control [nzErrorTip]="emailErrorTemplate">
                     <nz-input-group nzPrefixIcon="mail">
                         <input type="email" nz-input formControlName="email" placeholder="Informe o e-mail" />
+                        <ng-template #emailErrorTemplate let-control>
+                            @if (control.errors?.['required']) {
+                            Informe o e-mail
+                            }
+                            @if (control.errors?.['pattern']) {
+                            E-mail inválido
+                            }
+                            @if (!control.errors?.['pattern'] && control.errors?.['maxlength']) {
+                            O e-mail não deve ultrapassar {{ emailMaxLength }} caracteres
+                            }
+                        </ng-template>
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control>
+                <nz-form-control [nzErrorTip]="passwordErrorTemplate">
                     <nz-input-group nzPrefixIcon="lock" [nzSuffix]="passwordSuffixTemplate">
                         <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="Informe a senha"
                             formControlName="password" />
+                        <ng-template #passwordErrorTemplate let-control>
+                            @if (control.errors?.['required']) {
+                            Informe a senha
+                            }
+                            @if (control.errors?.['maxlength'] || control.errors?.['minlength']) {
+                            A senha deve conter entre {{ passwordMinLength }} e {{ passwordMaxLength }} caracteres
+                            }
+                        </ng-template>
                     </nz-input-group>
                     <ng-template #passwordSuffixTemplate>
                         <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
