@@ -8,6 +8,10 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
+import { UserRegistrationService } from './acl/service/user-registration.service';
+import { UserRegistrationProxyService } from './acl/proxy/user-registration-proxy.service';
+import { UserRegistrationAdapterService } from './acl/adapter/user-registration-adapter.service';
+
 @Component({
   selector: 'app-user-registration',
   standalone: true,
@@ -20,6 +24,11 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzInputModule,
     NzButtonModule,
     NzTypographyModule
+  ],
+  providers: [
+    UserRegistrationService,
+    UserRegistrationProxyService,
+    UserRegistrationAdapterService
   ],
   templateUrl: './user-registration.component.html',
   styleUrl: './user-registration.component.css'
@@ -38,7 +47,8 @@ export class UserRegistrationComponent implements OnInit {
   private patternEmail: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   constructor(
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly userRegistrationService: UserRegistrationService
   ) { }
 
   public ngOnInit(): void {
@@ -47,7 +57,13 @@ export class UserRegistrationComponent implements OnInit {
 
   protected registerUser(): void {
     if (this.userRegistrationForm.valid) {
-      console.log('registerUser', this.userRegistrationForm.value);
+      this.userRegistrationService.registerUser(
+        {
+          userName: this.userRegistrationForm.controls['userName'].value,
+          email: this.userRegistrationForm.controls['email'].value,
+          password: this.userRegistrationForm.controls['password'].value
+        }
+      );
     }
   }
 
