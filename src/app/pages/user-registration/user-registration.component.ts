@@ -34,7 +34,7 @@ export class UserRegistrationComponent implements OnInit {
   protected passwordMinLength: number = 8;
   protected passwordMaxLength: number = 100;
 
-  private patternUsername: RegExp = /^\S+$/;
+  private patternUserName: RegExp = /^\S+$/;
   private patternEmail: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   constructor(
@@ -53,7 +53,7 @@ export class UserRegistrationComponent implements OnInit {
 
   private buildUserRegistrationForm(): FormGroup {
     return this.formBuilder.group({
-      userName: [null, [Validators.required, Validators.pattern(this.patternUsername), Validators.minLength(this.userNameMinLength), Validators.maxLength(this.userNameMaxLength)]],
+      userName: [null, [Validators.required, Validators.pattern(this.patternUserName), Validators.minLength(this.userNameMinLength), Validators.maxLength(this.userNameMaxLength)]],
       email: [null, [Validators.required, Validators.pattern(this.patternEmail), Validators.maxLength(this.emailMaxLength)]],
       password: [null, [Validators.required, Validators.minLength(this.passwordMinLength), Validators.maxLength(this.passwordMaxLength)]]
     });
