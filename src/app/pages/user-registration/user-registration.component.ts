@@ -44,7 +44,7 @@ export class UserRegistrationComponent implements OnInit {
   protected passwordMaxLength: number = 100;
 
   private patternUserName: RegExp = /^\S+$/;
-  private patternEmail: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  private patternEmail: RegExp = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
 
   constructor(
     private readonly formBuilder: FormBuilder,
