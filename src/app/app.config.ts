@@ -6,24 +6,28 @@ import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { routes } from './app.routes';
 import { pt_BR, provideNzI18n } from 'ng-zorro-antd/i18n';
+
+import { routes } from './app.routes';
+import { MessageService } from './shared/services/message/message.service';
 
 registerLocaleData(pt);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(),
     provideRouter(
       routes
     ), 
-    provideAnimationsAsync(), 
+    provideHttpClient(),
     importProvidersFrom(
       FormsModule
-    ), 
+    ),
+    provideAnimationsAsync(),
 
     provideNzI18n(
       pt_BR
-    )
+    ),
+    
+    MessageService
   ]
 };

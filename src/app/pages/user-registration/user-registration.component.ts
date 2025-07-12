@@ -7,6 +7,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 import { UserRegistrationService } from './acl/service/user-registration.service';
 import { UserRegistrationProxyService } from './acl/proxy/user-registration-proxy.service';
@@ -23,7 +24,8 @@ import { UserRegistrationAdapterService } from './acl/adapter/user-registration-
     NzIconModule,
     NzInputModule,
     NzButtonModule,
-    NzTypographyModule
+    NzTypographyModule,
+    NzNotificationModule
   ],
   providers: [
     UserRegistrationService,
